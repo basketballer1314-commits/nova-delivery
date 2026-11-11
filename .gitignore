@@ -1,0 +1,36 @@
+# Dépendances et builds
+node_modules/
+.pnpm-store/
+.turbo/
+dist/
+build/
+.next/
+out/
+.expo/
+web-build/
+android/
+ios/
+*.tsbuildinfo
+
+# Secrets — ne jamais committer
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+google-services.json
+GoogleService-Info.plist
+credentials.json
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
+
+# Divers
+.DS_Store
+Thumbs.db
+*.log
+coverage/
+.vscode/
+.idea/
+.claude/settings.local.json
