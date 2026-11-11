@@ -1,0 +1,60 @@
+{
+  "common": {
+    "back": "Retour",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "loading": "Chargement…",
+    "retry": "Réessayer",
+    "continue": "Continuer",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "see_all": "Voir tout",
+    "optional": "Optionnel"
+  },
+  "auth": {
+    "welcome_title": "Bienvenue sur NOVA",
+    "welcome_subtitle": "La livraison rapide sur la Petite-Côte",
+    "phone_label": "Votre numéro de téléphone",
+    "phone_placeholder": "+221 77 000 00 00",
+    "phone_hint": "Numéro au format international",
+    "otp_label": "Code de vérification",
+    "otp_hint": "Code à 6 chiffres envoyé par SMS",
+    "login": "Se connecter",
+    "logout": "Se déconnecter",
+    "resend_code": "Renvoyer le code",
+    "resend_in": "Renvoyer dans {{seconds}} s"
+  },
+  "errors": {
+    "generic": "Une erreur est survenue. Veuillez réessayer.",
+    "network": "Vérifiez votre connexion internet.",
+    "phone_invalid": "Numéro de téléphone invalide.",
+    "otp_invalid": "Code incorrect. Veuillez vérifier et réessayer.",
+    "required": "Ce champ est obligatoire.",
+    "field_required": "{{field}} est obligatoire."
+  },
+  "currency": {
+    "fcfa": "FCFA",
+    "format": "{{amount}} FCFA"
+  },
+  "status": {
+    "pending": "En attente",
+    "confirmed": "Confirmée",
+    "preparing": "En préparation",
+    "ready": "Prête",
+    "picked_up": "Récupérée",
+    "delivered": "Livrée",
+    "cancelled": "Annulée",
+    "failed": "Échouée"
+  },
+  "a11y": {
+    "close_modal": "Fermer la fenêtre",
+    "go_back": "Revenir en arrière",
+    "mark_favorite": "Ajouter aux favoris",
+    "remove_favorite": "Retirer des favoris",
+    "loading": "Chargement en cours"
+  }
+}
