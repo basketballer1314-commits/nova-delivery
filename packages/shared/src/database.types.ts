@@ -1500,6 +1500,9 @@ export type Database = {
           name: string
           owner_id: string | null
           phone: string | null
+          prep_time_minutes: number
+          rating_avg: number | null
+          rating_count: number
           slug: string
           status: Database["public"]["Enums"]["restaurant_status"]
           updated_at: string
@@ -1518,6 +1521,9 @@ export type Database = {
           name: string
           owner_id?: string | null
           phone?: string | null
+          prep_time_minutes?: number
+          rating_avg?: number | null
+          rating_count?: number
           slug: string
           status?: Database["public"]["Enums"]["restaurant_status"]
           updated_at?: string
@@ -1536,6 +1542,9 @@ export type Database = {
           name?: string
           owner_id?: string | null
           phone?: string | null
+          prep_time_minutes?: number
+          rating_avg?: number | null
+          rating_count?: number
           slug?: string
           status?: Database["public"]["Enums"]["restaurant_status"]
           updated_at?: string

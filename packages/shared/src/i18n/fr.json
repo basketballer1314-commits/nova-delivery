@@ -89,6 +89,25 @@
     "notify_me": "Prévenez-moi",
     "thanks": "Merci ! Nous vous contacterons bientôt."
   },
+  "restaurant": {
+    "list_title": "Restaurants",
+    "search_placeholder": "Plat, restaurant, catégorie…",
+    "open": "Ouvert",
+    "closed": "Fermé",
+    "opens_at": "Ouvre à {{time}}",
+    "schedule": "Programmer",
+    "prep_minutes": "{{minutes}} min",
+    "delivery_fee": "Livraison {{amount}}",
+    "no_rating": "Nouveau",
+    "empty": "Aucun restaurant trouvé",
+    "add_item": "Ajouter, {{price}}",
+    "required_option": "Choix obligatoire",
+    "supplement": "+{{amount}}",
+    "conflict_title": "Changer de restaurant ?",
+    "conflict_desc": "Votre panier contient des articles d'un autre restaurant. Le vider pour continuer ?",
+    "conflict_replace": "Vider et ajouter",
+    "conflict_keep": "Garder mon panier"
+  },
   "errors": {
     "generic": "Une erreur est survenue. Veuillez réessayer.",
     "network": "Vérifiez votre connexion internet.",
