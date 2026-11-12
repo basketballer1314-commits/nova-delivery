@@ -2,6 +2,7 @@ import 'react-native-url-polyfill/auto'
 import { AppState, Platform } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
 import { createClient, type SupabaseClientOptions } from '@supabase/supabase-js'
+import type { Database } from '@nova/shared'
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY
@@ -29,7 +30,7 @@ const options: SupabaseClientOptions<'public'> = {
   },
 }
 
-export const supabase = createClient(supabaseUrl ?? '', supabaseAnonKey ?? '', options)
+export const supabase = createClient<Database>(supabaseUrl ?? '', supabaseAnonKey ?? '', options)
 
 // Rafraîchissement auto uniquement quand l'app est au premier plan.
 AppState.addEventListener('change', (state) => {

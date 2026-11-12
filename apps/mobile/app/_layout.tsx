@@ -3,6 +3,7 @@ import { Stack, useRouter, useSegments } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import * as SplashScreen from 'expo-splash-screen'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import {
   useFonts,
   Poppins_500Medium,
@@ -18,6 +19,7 @@ import '../src/i18n'
 import { ToastProvider } from '../src/ui'
 import { useAuth } from '../src/stores/auth'
 import { resolveRoute } from '../src/lib/routing'
+import { queryClient, asyncStoragePersister, DAY_MS } from '../src/lib/query'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -83,15 +85,20 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ToastProvider>
-        <Stack>
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(client)" options={{ headerShown: false }} />
-          <Stack.Screen name="(livreur)" options={{ headerShown: false }} />
-          <Stack.Screen name="dev/catalogue" options={{ title: 'Catalogue UI', headerShown: true }} />
-        </Stack>
-        <StatusBar style="auto" />
-      </ToastProvider>
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{ persister: asyncStoragePersister, maxAge: DAY_MS }}
+      >
+        <ToastProvider>
+          <Stack>
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="(client)" options={{ headerShown: false }} />
+            <Stack.Screen name="(livreur)" options={{ headerShown: false }} />
+            <Stack.Screen name="dev/catalogue" options={{ title: 'Catalogue UI', headerShown: true }} />
+          </Stack>
+          <StatusBar style="auto" />
+        </ToastProvider>
+      </PersistQueryClientProvider>
     </GestureHandlerRootView>
   )
 }
