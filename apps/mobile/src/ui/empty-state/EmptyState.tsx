@@ -25,7 +25,9 @@ export function EmptyState({ icon, title, subtitle, actionLabel, onAction, testI
         </Text>
       )}
       {actionLabel && onAction && (
-        <Button label={actionLabel} onPress={onAction} size="md" style={styles.action} />
+        <View style={styles.action}>
+          <Button label={actionLabel} onPress={onAction} size="md" />
+        </View>
       )}
     </View>
   )
