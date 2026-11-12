@@ -1939,6 +1939,17 @@ export type Database = {
         Args: { _restaurant_id: string }
         Returns: boolean
       }
+      my_addresses: {
+        Args: never
+        Returns: {
+          id: string
+          label: string
+          lat: number
+          lng: number
+          quartier: string
+          zone_id: number
+        }[]
+      }
     }
     Enums: {
       app_role:
