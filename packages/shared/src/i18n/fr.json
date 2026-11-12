@@ -26,7 +26,28 @@
     "login": "Se connecter",
     "logout": "Se déconnecter",
     "resend_code": "Renvoyer le code",
-    "resend_in": "Renvoyer dans {{seconds}} s"
+    "resend_in": "Renvoyer dans {{seconds}} s",
+    "get_started": "Commencer",
+    "skip": "Passer",
+    "choose_language": "Choisissez votre langue",
+    "verify": "Vérifier",
+    "create_profile_title": "Créer votre profil",
+    "name_label": "Votre nom",
+    "name_placeholder": "Prénom et nom",
+    "finish": "Terminer"
+  },
+  "onboarding": {
+    "slide1_title": "Repas & colis",
+    "slide1_desc": "Commandez vos plats préférés ou envoyez un colis en quelques tapes.",
+    "slide2_title": "Suivi en direct",
+    "slide2_desc": "Suivez votre livreur sur la carte, de la préparation à votre porte.",
+    "slide3_title": "Paiement simple",
+    "slide3_desc": "Espèces, Wave ou Orange Money. Vous choisissez."
+  },
+  "mode": {
+    "driver": "Mode livreur",
+    "client": "Mode client",
+    "profile": "Profil"
   },
   "errors": {
     "generic": "Une erreur est survenue. Veuillez réessayer.",

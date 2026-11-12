@@ -26,7 +26,28 @@
     "login": "Log in",
     "logout": "Log out",
     "resend_code": "Resend code",
-    "resend_in": "Resend in {{seconds}} s"
+    "resend_in": "Resend in {{seconds}} s",
+    "get_started": "Get started",
+    "skip": "Skip",
+    "choose_language": "Choose your language",
+    "verify": "Verify",
+    "create_profile_title": "Create your profile",
+    "name_label": "Your name",
+    "name_placeholder": "First and last name",
+    "finish": "Finish"
+  },
+  "onboarding": {
+    "slide1_title": "Food & parcels",
+    "slide1_desc": "Order your favorite meals or send a parcel in a few taps.",
+    "slide2_title": "Live tracking",
+    "slide2_desc": "Follow your courier on the map, from prep to your door.",
+    "slide3_title": "Simple payment",
+    "slide3_desc": "Cash, Wave or Orange Money. You choose."
+  },
+  "mode": {
+    "driver": "Driver mode",
+    "client": "Client mode",
+    "profile": "Profile"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",
