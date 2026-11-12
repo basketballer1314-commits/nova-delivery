@@ -13,6 +13,10 @@ export default function ClientLayout() {
     >
       <Tabs.Screen name="index" options={{ title: 'Accueil' }} />
       <Tabs.Screen name="profile" options={{ title: 'Profil' }} />
+      {/* Écrans navigables hors barre d'onglets */}
+      <Tabs.Screen name="address" options={{ href: null }} />
+      <Tabs.Screen name="address-book" options={{ href: null }} />
+      <Tabs.Screen name="out-of-zone" options={{ href: null }} />
     </Tabs>
   )
 }

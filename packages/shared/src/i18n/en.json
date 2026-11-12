@@ -49,6 +49,46 @@
     "client": "Client mode",
     "profile": "Profile"
   },
+  "home": {
+    "deliver_to": "Deliver to",
+    "add_address": "Add an address",
+    "greeting_morning": "Good morning",
+    "greeting_evening": "Good evening",
+    "search_placeholder": "Search a dish, a restaurant…",
+    "tile_food": "Food",
+    "tile_food_desc": "Order a meal",
+    "tile_parcel": "Parcel",
+    "tile_parcel_desc": "Send a parcel",
+    "categories": "Categories",
+    "near_you": "Near you",
+    "cat_all": "All",
+    "cat_meals": "Meals",
+    "cat_fast": "Fast food",
+    "cat_drinks": "Drinks",
+    "cat_groceries": "Groceries"
+  },
+  "address": {
+    "title": "Delivery address",
+    "move_pin": "Drag the pin to your location",
+    "quartier": "Neighborhood",
+    "landmark": "Landmark description",
+    "landmark_placeholder": "E.g. green gate past the pharmacy",
+    "floor_gate": "Floor / gate",
+    "add_photo": "Add a photo",
+    "photo_added": "Photo added",
+    "save": "Save address",
+    "book_title": "Address book",
+    "label_home": "Home",
+    "label_work": "Work",
+    "label_hotel": "Hotel",
+    "empty": "No saved address"
+  },
+  "zone": {
+    "out_title": "We don't deliver to {{area}} yet",
+    "out_desc": "Leave your number, we'll notify you at launch.",
+    "notify_me": "Notify me",
+    "thanks": "Thanks! We'll reach out soon."
+  },
   "errors": {
     "generic": "Something went wrong. Please try again.",
     "network": "Please check your internet connection.",

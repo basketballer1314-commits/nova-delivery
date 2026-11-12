@@ -49,6 +49,46 @@
     "client": "Mode client",
     "profile": "Profil"
   },
+  "home": {
+    "deliver_to": "Livrer à",
+    "add_address": "Ajouter une adresse",
+    "greeting_morning": "Bonjour",
+    "greeting_evening": "Bonsoir",
+    "search_placeholder": "Rechercher un plat, un restaurant…",
+    "tile_food": "Repas",
+    "tile_food_desc": "Commandez un repas",
+    "tile_parcel": "Colis",
+    "tile_parcel_desc": "Envoyez un colis",
+    "categories": "Catégories",
+    "near_you": "Près de chez vous",
+    "cat_all": "Tout",
+    "cat_meals": "Repas",
+    "cat_fast": "Fast-food",
+    "cat_drinks": "Boissons",
+    "cat_groceries": "Épicerie"
+  },
+  "address": {
+    "title": "Adresse de livraison",
+    "move_pin": "Déplacez le point sur votre position",
+    "quartier": "Quartier",
+    "landmark": "Description du repère",
+    "landmark_placeholder": "Ex. portail vert après la pharmacie",
+    "floor_gate": "Étage / portail",
+    "add_photo": "Ajouter une photo",
+    "photo_added": "Photo ajoutée",
+    "save": "Enregistrer l'adresse",
+    "book_title": "Carnet d'adresses",
+    "label_home": "Maison",
+    "label_work": "Travail",
+    "label_hotel": "Hôtel",
+    "empty": "Aucune adresse enregistrée"
+  },
+  "zone": {
+    "out_title": "Nous ne livrons pas encore à {{area}}",
+    "out_desc": "Laissez votre numéro, on vous prévient dès l'ouverture.",
+    "notify_me": "Prévenez-moi",
+    "thanks": "Merci ! Nous vous contacterons bientôt."
+  },
   "errors": {
     "generic": "Une erreur est survenue. Veuillez réessayer.",
     "network": "Vérifiez votre connexion internet.",
