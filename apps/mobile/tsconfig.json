@@ -3,9 +3,12 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"],
+      "@nova/ui-tokens": ["../../packages/ui-tokens/src/index.ts"],
+      "@nova/ui-tokens/tailwind": ["../../packages/ui-tokens/src/tailwind-preset.ts"],
+      "@nova/shared": ["../../packages/shared/src/index.ts"],
+      "@nova/shared/i18n/fr": ["../../packages/shared/src/i18n/fr.json"],
+      "@nova/shared/i18n/en": ["../../packages/shared/src/i18n/en.json"]
     }
   },
   "include": [

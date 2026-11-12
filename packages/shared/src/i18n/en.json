@@ -1,0 +1,60 @@
+{
+  "common": {
+    "back": "Back",
+    "close": "Close",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading…",
+    "retry": "Retry",
+    "continue": "Continue",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "see_all": "See all",
+    "optional": "Optional"
+  },
+  "auth": {
+    "welcome_title": "Welcome to NOVA",
+    "welcome_subtitle": "Fast delivery on the Petite-Côte",
+    "phone_label": "Your phone number",
+    "phone_placeholder": "+221 77 000 00 00",
+    "phone_hint": "International format",
+    "otp_label": "Verification code",
+    "otp_hint": "6-digit code sent by SMS",
+    "login": "Log in",
+    "logout": "Log out",
+    "resend_code": "Resend code",
+    "resend_in": "Resend in {{seconds}} s"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Please check your internet connection.",
+    "phone_invalid": "Invalid phone number.",
+    "otp_invalid": "Incorrect code. Please check and try again.",
+    "required": "This field is required.",
+    "field_required": "{{field}} is required."
+  },
+  "currency": {
+    "fcfa": "FCFA",
+    "format": "{{amount}} FCFA"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "preparing": "Preparing",
+    "ready": "Ready",
+    "picked_up": "Picked up",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled",
+    "failed": "Failed"
+  },
+  "a11y": {
+    "close_modal": "Close dialog",
+    "go_back": "Go back",
+    "mark_favorite": "Add to favorites",
+    "remove_favorite": "Remove from favorites",
+    "loading": "Loading"
+  }
+}
