@@ -1831,6 +1831,36 @@ export type Database = {
           },
         ]
       }
+      zone_waitlist: {
+        Row: {
+          created_at: string
+          id: string
+          lat: number | null
+          lng: number | null
+          note: string | null
+          phone: string
+          quartier: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          note?: string | null
+          phone: string
+          quartier?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          note?: string | null
+          phone?: string
+          quartier?: string | null
+        }
+        Relationships: []
+      }
       zones: {
         Row: {
           active: boolean
@@ -1886,6 +1916,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_zone: { Args: { _lat: number; _lng: number }; Returns: number }
       current_courier_id: { Args: never; Returns: string }
       get_job_contact: {
         Args: { _job_id: string }
@@ -1907,6 +1938,17 @@ export type Database = {
       is_restaurant_owner: {
         Args: { _restaurant_id: string }
         Returns: boolean
+      }
+      my_addresses: {
+        Args: never
+        Returns: {
+          id: string
+          label: string
+          lat: number
+          lng: number
+          quartier: string
+          zone_id: number
+        }[]
       }
     }
     Enums: {
