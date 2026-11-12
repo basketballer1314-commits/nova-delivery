@@ -45,3 +45,8 @@ create table public.zone_prices (
 );
 
 create index zone_prices_lookup on public.zone_prices (service, from_zone, to_zone, valid_from);
+
+-- un seul prix actif (valid_to null) par service + couple de zones
+create unique index zone_prices_current_unique
+  on public.zone_prices (service, from_zone, to_zone)
+  where valid_to is null;
