@@ -1,6 +1,9 @@
+import { useRef } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import type RNBottomSheet from '@gorhom/bottom-sheet'
 import { colors, fontFamilies, fontSizes, spacing } from '@nova/ui-tokens'
 import {
+  BottomSheet,
   Button,
   Card,
   Chip,
@@ -28,8 +31,10 @@ function Row({ children }: { children: React.ReactNode }) {
 
 export default function CatalogueScreen() {
   const { show } = useToast()
+  const sheetRef = useRef<RNBottomSheet>(null)
 
   return (
+    <>
     <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
 
       {/* ── MODE CLIENT ── */}
@@ -122,6 +127,17 @@ export default function CatalogueScreen() {
         />
       </Section>
 
+      <Section title="Bottom sheet">
+        <Row>
+          <Button
+            label="Ouvrir le bottom sheet"
+            variant="secondary"
+            size="md"
+            onPress={() => sheetRef.current?.expand()}
+          />
+        </Row>
+      </Section>
+
       <Section title="Toast">
         <Row>
           <Button label="Succès" variant="primary" size="sm" onPress={() => show('Commande confirmée !', 'success')} />
@@ -162,6 +178,22 @@ export default function CatalogueScreen() {
       </Section>
 
     </ScrollView>
+
+    <BottomSheet
+      ref={sheetRef}
+      index={-1}
+      snapPoints={['35%']}
+      enablePanDownToClose
+      title="Exemple de bottom sheet"
+    >
+      <Text style={styles.bodyText}>
+        Contenu glissé depuis le bas. Tirez vers le bas pour fermer.
+      </Text>
+      <View style={{ marginTop: spacing[4] }}>
+        <Button label="Fermer" variant="primary" size="md" onPress={() => sheetRef.current?.close()} />
+      </View>
+    </BottomSheet>
+    </>
   )
 }
 
