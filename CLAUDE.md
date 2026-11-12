@@ -79,3 +79,16 @@ CLAUDE.md        ce fichier
 - Propose un plan avant de coder. Petites étapes, un commit par étape.
 - Écris des tests pour tout calcul d'argent et toute règle RLS.
 - Si une règle de ce fichier semble bloquer, demande-moi au lieu de la contourner.
+
+## Collaboration git (à 2 — voir WORKFLOW-GIT.md)
+- Branches `main` et `develop` PROTÉGÉES, squash merge. Jamais de push direct dessus.
+- Toujours `git pull origin develop` avant de coder.
+- Travailler sur une branche `feature/...`, puis Pull Request vers `develop`.
+
+## Après CHAQUE modification de code
+Dès qu'une modif de fichier est terminée, Claude DOIT :
+1. Proposer de commiter.
+2. Donner le message de commit exact : `git commit -m "<description claire du changement>"`
+   (décrit le vrai changement, pas "update"/"fix"). Ex : `git commit -m "ajout bouton paiement sur ecran commande"`.
+3. Après OK : `git add .` puis `git commit -m "<description>"`.
+4. Demander si on push sur la branche feature.
