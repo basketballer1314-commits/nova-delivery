@@ -12,6 +12,7 @@ export default function ClientLayout() {
       }}
     >
       <Tabs.Screen name="index" options={{ title: 'Accueil' }} />
+      <Tabs.Screen name="profile" options={{ title: 'Profil' }} />
     </Tabs>
   )
 }

@@ -12,6 +12,7 @@ export default function DriverLayout() {
       }}
     >
       <Tabs.Screen name="index" options={{ title: 'Tableau de bord' }} />
+      <Tabs.Screen name="profile" options={{ title: 'Profil' }} />
     </Tabs>
   )
 }
