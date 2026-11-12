@@ -1868,7 +1868,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      current_courier_id: { Args: never; Returns: string }
+      get_job_contact: {
+        Args: { _job_id: string }
+        Returns: {
+          recipient_name: string
+          recipient_phone: string
+        }[]
+      }
+      has_role: {
+        Args: { _role: Database["public"]["Enums"]["app_role"] }
+        Returns: boolean
+      }
+      is_admin: { Args: never; Returns: boolean }
+      is_finance_admin: { Args: never; Returns: boolean }
+      is_restaurant_member: {
+        Args: { _restaurant_id: string }
+        Returns: boolean
+      }
+      is_restaurant_owner: {
+        Args: { _restaurant_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role:
