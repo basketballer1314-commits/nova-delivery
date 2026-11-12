@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import * as SplashScreen from 'expo-splash-screen'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   useFonts,
   Poppins_500Medium,
@@ -41,14 +42,16 @@ export default function RootLayout() {
   if (!fontsLoaded) return null
 
   return (
-    <ToastProvider>
-      <Stack>
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(client)" options={{ headerShown: false }} />
-        <Stack.Screen name="(livreur)" options={{ headerShown: false }} />
-        <Stack.Screen name="dev/catalogue" options={{ title: 'Catalogue UI', headerShown: true }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ToastProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ToastProvider>
+        <Stack>
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(client)" options={{ headerShown: false }} />
+          <Stack.Screen name="(livreur)" options={{ headerShown: false }} />
+          <Stack.Screen name="dev/catalogue" options={{ title: 'Catalogue UI', headerShown: true }} />
+        </Stack>
+        <StatusBar style="auto" />
+      </ToastProvider>
+    </GestureHandlerRootView>
   )
 }
