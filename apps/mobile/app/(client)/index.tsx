@@ -63,7 +63,11 @@ export default function ClientHomeScreen() {
 
       {/* Deux grandes tuiles */}
       <View style={styles.tiles}>
-        <Pressable style={[styles.tile, { backgroundColor: colors.service.food }]} accessibilityRole="button">
+        <Pressable
+          style={[styles.tile, { backgroundColor: colors.service.food }]}
+          accessibilityRole="button"
+          onPress={() => router.push('/(client)/restaurants')}
+        >
           <Text style={[styles.tileTitle, { color: colors.service.foodText }]} maxFontSizeMultiplier={1.3}>
             {t('home.tile_food')}
           </Text>

@@ -89,6 +89,25 @@
     "notify_me": "Notify me",
     "thanks": "Thanks! We'll reach out soon."
   },
+  "restaurant": {
+    "list_title": "Restaurants",
+    "search_placeholder": "Dish, restaurant, category…",
+    "open": "Open",
+    "closed": "Closed",
+    "opens_at": "Opens at {{time}}",
+    "schedule": "Schedule",
+    "prep_minutes": "{{minutes}} min",
+    "delivery_fee": "Delivery {{amount}}",
+    "no_rating": "New",
+    "empty": "No restaurant found",
+    "add_item": "Add, {{price}}",
+    "required_option": "Required choice",
+    "supplement": "+{{amount}}",
+    "conflict_title": "Switch restaurant?",
+    "conflict_desc": "Your cart has items from another restaurant. Clear it to continue?",
+    "conflict_replace": "Clear and add",
+    "conflict_keep": "Keep my cart"
+  },
   "errors": {
     "generic": "Something went wrong. Please try again.",
     "network": "Please check your internet connection.",

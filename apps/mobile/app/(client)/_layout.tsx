@@ -17,6 +17,8 @@ export default function ClientLayout() {
       <Tabs.Screen name="address" options={{ href: null }} />
       <Tabs.Screen name="address-book" options={{ href: null }} />
       <Tabs.Screen name="out-of-zone" options={{ href: null }} />
+      <Tabs.Screen name="restaurants" options={{ href: null }} />
+      <Tabs.Screen name="restaurant/[id]" options={{ href: null }} />
     </Tabs>
   )
 }
