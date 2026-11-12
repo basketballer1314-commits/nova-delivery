@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import RNBottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 import type { BottomSheetProps as RNBottomSheetProps } from '@gorhom/bottom-sheet'
 import { colors, radii, fontFamilies, fontSizes, spacing } from '@nova/ui-tokens'
