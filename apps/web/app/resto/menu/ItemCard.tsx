@@ -52,7 +52,6 @@ export default function ItemCard({ item, onChange }: { item: Item; onChange: () 
       <div className="flex items-start gap-12">
         <label className="relative h-56 w-56 shrink-0 cursor-pointer overflow-hidden rounded-sm bg-gray-100">
           {photo ? (
-            // eslint-disable-next-line @next/next/no-img-element
             <img src={photo} alt={item.name} className="h-full w-full object-cover" />
           ) : (
             <span className="flex h-full w-full items-center justify-center font-body text-[11px] text-gray-500">
