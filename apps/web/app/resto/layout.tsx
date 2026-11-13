@@ -6,7 +6,7 @@ import RestoProvider from './RestoProvider'
 export const metadata: Metadata = {
   title: 'NOVA Resto',
   description: 'Gestion des commandes restaurant — NOVA',
-  manifest: '/resto/manifest.webmanifest',
+  manifest: '/manifest.webmanifest',
   appleWebApp: { capable: true, statusBarStyle: 'default', title: 'NOVA Resto' },
 }
 
