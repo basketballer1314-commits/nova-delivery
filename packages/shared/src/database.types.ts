@@ -99,6 +99,83 @@ export type Database = {
           },
         ]
       }
+      admin_alerts: {
+        Row: {
+          courier_id: string | null
+          created_at: string
+          data: Json
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          job_id: string | null
+          message: string
+          order_id: string | null
+          resolved_at: string | null
+          severity: string
+          status: string
+          type: string
+        }
+        Insert: {
+          courier_id?: string | null
+          created_at?: string
+          data?: Json
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          job_id?: string | null
+          message: string
+          order_id?: string | null
+          resolved_at?: string | null
+          severity?: string
+          status?: string
+          type: string
+        }
+        Update: {
+          courier_id?: string | null
+          created_at?: string
+          data?: Json
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          job_id?: string | null
+          message?: string
+          order_id?: string | null
+          resolved_at?: string | null
+          severity?: string
+          status?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_alerts_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "courier_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "admin_alerts_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "v_courier_balances"
+            referencedColumns: ["courier_id"]
+          },
+          {
+            foreignKeyName: "admin_alerts_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "admin_alerts_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       admin_audit_logs: {
         Row: {
           action: string
@@ -173,6 +250,13 @@ export type Database = {
             referencedRelation: "courier_profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "cash_remittances_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "v_courier_balances"
+            referencedColumns: ["courier_id"]
+          },
         ]
       }
       cities: {
@@ -204,6 +288,55 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      courier_cancellations: {
+        Row: {
+          courier_id: string
+          created_at: string
+          id: string
+          job_id: string | null
+          justified: boolean
+          reason: string | null
+        }
+        Insert: {
+          courier_id: string
+          created_at?: string
+          id?: string
+          job_id?: string | null
+          justified?: boolean
+          reason?: string | null
+        }
+        Update: {
+          courier_id?: string
+          created_at?: string
+          id?: string
+          job_id?: string | null
+          justified?: boolean
+          reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courier_cancellations_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "courier_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courier_cancellations_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "v_courier_balances"
+            referencedColumns: ["courier_id"]
+          },
+          {
+            foreignKeyName: "courier_cancellations_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_jobs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       courier_documents: {
         Row: {
@@ -243,6 +376,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "courier_profiles"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courier_documents_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "v_courier_balances"
+            referencedColumns: ["courier_id"]
           },
         ]
       }
@@ -332,15 +472,26 @@ export type Database = {
             referencedRelation: "courier_profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "courier_shifts_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "v_courier_balances"
+            referencedColumns: ["courier_id"]
+          },
         ]
       }
       delivery_jobs: {
         Row: {
           assigned_at: string | null
+          bonus: number
           courier_id: string | null
           created_at: string
+          customer_id: string | null
           delivered_at: string | null
+          dropoff_location: unknown
           dropoff_photo_path: string | null
+          escalations: Json
           id: string
           job_type: Database["public"]["Enums"]["delivery_job_type"]
           order_id: string | null
@@ -348,16 +499,26 @@ export type Database = {
           parcel_id: string | null
           payout: number
           picked_up_at: string | null
+          pickup_location: unknown
           pickup_photo_path: string | null
+          priority: boolean
+          ready_at: string | null
+          requires_cash: boolean
+          search_radius_m: number | null
+          search_started_at: string | null
           status: string
           updated_at: string
         }
         Insert: {
           assigned_at?: string | null
+          bonus?: number
           courier_id?: string | null
           created_at?: string
+          customer_id?: string | null
           delivered_at?: string | null
+          dropoff_location?: unknown
           dropoff_photo_path?: string | null
+          escalations?: Json
           id?: string
           job_type: Database["public"]["Enums"]["delivery_job_type"]
           order_id?: string | null
@@ -365,16 +526,26 @@ export type Database = {
           parcel_id?: string | null
           payout?: number
           picked_up_at?: string | null
+          pickup_location?: unknown
           pickup_photo_path?: string | null
+          priority?: boolean
+          ready_at?: string | null
+          requires_cash?: boolean
+          search_radius_m?: number | null
+          search_started_at?: string | null
           status?: string
           updated_at?: string
         }
         Update: {
           assigned_at?: string | null
+          bonus?: number
           courier_id?: string | null
           created_at?: string
+          customer_id?: string | null
           delivered_at?: string | null
+          dropoff_location?: unknown
           dropoff_photo_path?: string | null
+          escalations?: Json
           id?: string
           job_type?: Database["public"]["Enums"]["delivery_job_type"]
           order_id?: string | null
@@ -382,7 +553,13 @@ export type Database = {
           parcel_id?: string | null
           payout?: number
           picked_up_at?: string | null
+          pickup_location?: unknown
           pickup_photo_path?: string | null
+          priority?: boolean
+          ready_at?: string | null
+          requires_cash?: boolean
+          search_radius_m?: number | null
+          search_started_at?: string | null
           status?: string
           updated_at?: string
         }
@@ -392,6 +569,20 @@ export type Database = {
             columns: ["courier_id"]
             isOneToOne: false
             referencedRelation: "courier_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_jobs_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "v_courier_balances"
+            referencedColumns: ["courier_id"]
+          },
+          {
+            foreignKeyName: "delivery_jobs_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
@@ -453,6 +644,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "job_offers_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "v_courier_balances"
+            referencedColumns: ["courier_id"]
+          },
+          {
             foreignKeyName: "job_offers_job_id_fkey"
             columns: ["job_id"]
             isOneToOne: false
@@ -491,6 +689,30 @@ export type Database = {
           id?: string
           reference?: string | null
           transaction_id?: string
+        }
+        Relationships: []
+      }
+      ledger_transactions: {
+        Row: {
+          created_at: string
+          id: string
+          idempotency_key: string
+          kind: string
+          reference: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          idempotency_key: string
+          kind: string
+          reference?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          idempotency_key?: string
+          kind?: string
+          reference?: string | null
         }
         Relationships: []
       }
@@ -764,11 +986,15 @@ export type Database = {
           delivery_address_id: string | null
           delivery_fee: number
           discount_total: number
+          dispatch_flags: Json
           id: string
           idempotency_key: string
           items_total: number
           payment_method: Database["public"]["Enums"]["payment_method"] | null
+          payment_ref: string | null
+          prep_minutes: number | null
           pricing_snapshot: Json
+          refusal_reason: string | null
           restaurant_id: string | null
           service_fee: number
           status: Database["public"]["Enums"]["order_status"]
@@ -783,11 +1009,15 @@ export type Database = {
           delivery_address_id?: string | null
           delivery_fee?: number
           discount_total?: number
+          dispatch_flags?: Json
           id?: string
           idempotency_key: string
           items_total?: number
           payment_method?: Database["public"]["Enums"]["payment_method"] | null
+          payment_ref?: string | null
+          prep_minutes?: number | null
           pricing_snapshot?: Json
+          refusal_reason?: string | null
           restaurant_id?: string | null
           service_fee?: number
           status?: Database["public"]["Enums"]["order_status"]
@@ -802,11 +1032,15 @@ export type Database = {
           delivery_address_id?: string | null
           delivery_fee?: number
           discount_total?: number
+          dispatch_flags?: Json
           id?: string
           idempotency_key?: string
           items_total?: number
           payment_method?: Database["public"]["Enums"]["payment_method"] | null
+          payment_ref?: string | null
+          prep_minutes?: number | null
           pricing_snapshot?: Json
+          refusal_reason?: string | null
           restaurant_id?: string | null
           service_fee?: number
           status?: Database["public"]["Enums"]["order_status"]
@@ -1092,6 +1326,13 @@ export type Database = {
             referencedRelation: "courier_profiles"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "payouts_courier_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: false
+            referencedRelation: "v_courier_balances"
+            referencedColumns: ["courier_id"]
+          },
         ]
       }
       profiles: {
@@ -1368,6 +1609,7 @@ export type Database = {
           amount: number
           created_at: string
           id: string
+          imputation: string | null
           order_id: string | null
           parcel_id: string | null
           payment_id: string | null
@@ -1379,6 +1621,7 @@ export type Database = {
           amount: number
           created_at?: string
           id?: string
+          imputation?: string | null
           order_id?: string | null
           parcel_id?: string | null
           payment_id?: string | null
@@ -1390,6 +1633,7 @@ export type Database = {
           amount?: number
           created_at?: string
           id?: string
+          imputation?: string | null
           order_id?: string | null
           parcel_id?: string | null
           payment_id?: string | null
@@ -1508,16 +1752,20 @@ export type Database = {
           commission_rate: number
           commission_valid_from: string
           commission_valid_to: string | null
+          consecutive_refusals: number
           created_at: string
           id: string
           location: unknown
           logo_path: string | null
           name: string
           owner_id: string | null
+          paused_until: string | null
           phone: string | null
           prep_time_minutes: number
           rating_avg: number | null
           rating_count: number
+          seller_commission_pct: number
+          seller_id: string | null
           slug: string
           status: Database["public"]["Enums"]["restaurant_status"]
           updated_at: string
@@ -1529,16 +1777,20 @@ export type Database = {
           commission_rate?: number
           commission_valid_from?: string
           commission_valid_to?: string | null
+          consecutive_refusals?: number
           created_at?: string
           id?: string
           location?: unknown
           logo_path?: string | null
           name: string
           owner_id?: string | null
+          paused_until?: string | null
           phone?: string | null
           prep_time_minutes?: number
           rating_avg?: number | null
           rating_count?: number
+          seller_commission_pct?: number
+          seller_id?: string | null
           slug: string
           status?: Database["public"]["Enums"]["restaurant_status"]
           updated_at?: string
@@ -1550,16 +1802,20 @@ export type Database = {
           commission_rate?: number
           commission_valid_from?: string
           commission_valid_to?: string | null
+          consecutive_refusals?: number
           created_at?: string
           id?: string
           location?: unknown
           logo_path?: string | null
           name?: string
           owner_id?: string | null
+          paused_until?: string | null
           phone?: string | null
           prep_time_minutes?: number
           rating_avg?: number | null
           rating_count?: number
+          seller_commission_pct?: number
+          seller_id?: string | null
           slug?: string
           status?: Database["public"]["Enums"]["restaurant_status"]
           updated_at?: string
@@ -1576,6 +1832,13 @@ export type Database = {
           {
             foreignKeyName: "restaurants_owner_id_fkey"
             columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "restaurants_seller_id_fkey"
+            columns: ["seller_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -1937,11 +2200,97 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      v_courier_balances: {
+        Row: {
+          cash_held: number | null
+          courier_id: string | null
+          earnings_due: number | null
+        }
+        Insert: {
+          cash_held?: never
+          courier_id?: string | null
+          earnings_due?: never
+        }
+        Update: {
+          cash_held?: never
+          courier_id?: string | null
+          earnings_due?: never
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courier_profiles_id_fkey"
+            columns: ["courier_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_restaurant_balances: {
+        Row: {
+          balance_due: number | null
+          restaurant_id: string | null
+        }
+        Relationships: []
+      }
+      v_seller_balances: {
+        Row: {
+          balance_due: number | null
+          seller_id: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      _lline: {
+        Args: {
+          _acct: string
+          _acct_id: string
+          _credit: number
+          _debit: number
+        }
+        Returns: Json
+      }
       check_zone: { Args: { _lat: number; _lng: number }; Returns: number }
+      courier_accept_offer: { Args: { _offer_id: string }; Returns: string }
+      courier_cancel_job: {
+        Args: { _job_id: string; _reason: string }
+        Returns: undefined
+      }
+      courier_decline_offer: { Args: { _offer_id: string }; Returns: undefined }
+      courier_eta_minutes: {
+        Args: { _from: unknown; _to: unknown }
+        Returns: number
+      }
       current_courier_id: { Args: never; Returns: string }
+      dispatch_eligible_couriers: {
+        Args: { _job_id: string }
+        Returns: {
+          courier_id: string
+          deliveries_today: number
+          distance_m: number
+          eta_min: number
+        }[]
+      }
+      dispatch_make_offer: { Args: { _job_id: string }; Returns: string }
+      dispatch_queue_sms: {
+        Args: { _body: string; _title: string; _user_id: string }
+        Returns: undefined
+      }
+      dispatch_setting: {
+        Args: { _default: number; _key: string }
+        Returns: number
+      }
+      dispatch_tick: { Args: never; Returns: undefined }
+      finance_post: {
+        Args: { _idempotency: string; _kind: string; _payload: Json }
+        Returns: string
+      }
+      finance_validate_payment: {
+        Args: { _order_id: string }
+        Returns: undefined
+      }
+      gen_payment_ref: { Args: never; Returns: string }
       get_job_contact: {
         Args: { _job_id: string }
         Returns: {
@@ -1963,6 +2312,7 @@ export type Database = {
         Args: { _restaurant_id: string }
         Returns: boolean
       }
+      ledger_reconcile: { Args: never; Returns: undefined }
       my_addresses: {
         Args: never
         Returns: {
@@ -1974,6 +2324,125 @@ export type Database = {
           zone_id: number
         }[]
       }
+      payment_instructions: { Args: { _order_id: string }; Returns: Json }
+      post_ledger: {
+        Args: { _idempotency: string; _kind: string; _payload: Json }
+        Returns: string
+      }
+      record_admin_alert: {
+        Args: {
+          _courier: string
+          _data: Json
+          _job: string
+          _message: string
+          _order: string
+          _severity: string
+          _type: string
+        }
+        Returns: string
+      }
+      resto_accept_order: {
+        Args: { _order_id: string; _prep_minutes: number }
+        Returns: undefined
+      }
+      resto_add_option: {
+        Args: { _group_id: string; _name: string; _price_delta: number }
+        Returns: string
+      }
+      resto_add_option_group: {
+        Args: {
+          _item_id: string
+          _max_select: number
+          _min_select: number
+          _name: string
+          _required: boolean
+        }
+        Returns: string
+      }
+      resto_add_staff: {
+        Args: { _phone: string; _restaurant_id: string }
+        Returns: string
+      }
+      resto_apply_rg18: { Args: { _restaurant_id: string }; Returns: undefined }
+      resto_delete_option: { Args: { _option_id: string }; Returns: undefined }
+      resto_delete_option_group: {
+        Args: { _group_id: string }
+        Returns: undefined
+      }
+      resto_history: {
+        Args: { _limit?: number; _restaurant_id: string }
+        Returns: {
+          created_at: string
+          id: string
+          prep_minutes: number
+          refusal_reason: string
+          status: Database["public"]["Enums"]["order_status"]
+          total: number
+        }[]
+      }
+      resto_list_staff: {
+        Args: { _restaurant_id: string }
+        Returns: {
+          created_at: string
+          full_name: string
+          member_role: Database["public"]["Enums"]["app_role"]
+          phone: string
+          user_id: string
+        }[]
+      }
+      resto_my_restaurants: {
+        Args: never
+        Returns: {
+          id: string
+          is_owner: boolean
+          name: string
+          paused_until: string
+          slug: string
+          status: Database["public"]["Enums"]["restaurant_status"]
+        }[]
+      }
+      resto_order_ready: { Args: { _order_id: string }; Returns: undefined }
+      resto_queue: {
+        Args: { _restaurant_id: string }
+        Returns: {
+          created_at: string
+          id: string
+          items: Json
+          prep_minutes: number
+          status: Database["public"]["Enums"]["order_status"]
+          total: number
+        }[]
+      }
+      resto_refuse_order: {
+        Args: { _order_id: string; _reason: string }
+        Returns: undefined
+      }
+      resto_remove_staff: {
+        Args: { _restaurant_id: string; _user_id: string }
+        Returns: undefined
+      }
+      resto_reports: {
+        Args: { _from: string; _restaurant_id: string; _to: string }
+        Returns: {
+          commission_total: number
+          gross_sales: number
+          orders_count: number
+          resto_payout: number
+        }[]
+      }
+      resto_rg18_threshold: { Args: never; Returns: number }
+      resto_set_pause: {
+        Args: { _minutes: number; _restaurant_id: string }
+        Returns: string
+      }
+      resto_timeout_order: { Args: { _order_id: string }; Returns: undefined }
+      resto_toggle_item: {
+        Args: { _available: boolean; _item_id: string }
+        Returns: undefined
+      }
+      settle_cod_j1: { Args: never; Returns: undefined }
+      settle_restaurants_weekly: { Args: never; Returns: undefined }
+      start_courier_search: { Args: { _job_id: string }; Returns: boolean }
       track_parcel: { Args: { _token: string }; Returns: Json }
     }
     Enums: {
