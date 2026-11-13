@@ -1997,61 +1997,65 @@ export type Database = {
       resto_add_option_group: {
         Args: {
           _item_id: string
-          _name: string
-          _min_select: number
           _max_select: number
+          _min_select: number
+          _name: string
           _required: boolean
         }
         Returns: string
       }
       resto_add_staff: {
-        Args: { _restaurant_id: string; _phone: string }
+        Args: { _phone: string; _restaurant_id: string }
         Returns: string
       }
+      resto_apply_rg18: { Args: { _restaurant_id: string }; Returns: undefined }
       resto_delete_option: { Args: { _option_id: string }; Returns: undefined }
-      resto_delete_option_group: { Args: { _group_id: string }; Returns: undefined }
+      resto_delete_option_group: {
+        Args: { _group_id: string }
+        Returns: undefined
+      }
       resto_history: {
-        Args: { _restaurant_id: string; _limit?: number }
+        Args: { _limit?: number; _restaurant_id: string }
         Returns: {
+          created_at: string
           id: string
+          prep_minutes: number
+          refusal_reason: string
           status: Database["public"]["Enums"]["order_status"]
           total: number
-          refusal_reason: string | null
-          prep_minutes: number | null
-          created_at: string
         }[]
       }
       resto_list_staff: {
         Args: { _restaurant_id: string }
         Returns: {
-          user_id: string
-          full_name: string | null
-          phone: string | null
-          member_role: Database["public"]["Enums"]["app_role"]
           created_at: string
+          full_name: string
+          member_role: Database["public"]["Enums"]["app_role"]
+          phone: string
+          user_id: string
         }[]
       }
       resto_my_restaurants: {
         Args: never
         Returns: {
           id: string
+          is_owner: boolean
           name: string
+          paused_until: string
           slug: string
           status: Database["public"]["Enums"]["restaurant_status"]
-          paused_until: string | null
-          is_owner: boolean
         }[]
       }
       resto_order_ready: { Args: { _order_id: string }; Returns: undefined }
       resto_queue: {
         Args: { _restaurant_id: string }
         Returns: {
+          created_at: string
           id: string
+          items: Json
+          prep_minutes: number
           status: Database["public"]["Enums"]["order_status"]
           total: number
-          prep_minutes: number | null
-          created_at: string
-          items: Json
         }[]
       }
       resto_refuse_order: {
@@ -2063,21 +2067,22 @@ export type Database = {
         Returns: undefined
       }
       resto_reports: {
-        Args: { _restaurant_id: string; _from: string; _to: string }
+        Args: { _from: string; _restaurant_id: string; _to: string }
         Returns: {
-          orders_count: number
-          gross_sales: number
           commission_total: number
+          gross_sales: number
+          orders_count: number
           resto_payout: number
         }[]
       }
+      resto_rg18_threshold: { Args: never; Returns: number }
       resto_set_pause: {
-        Args: { _restaurant_id: string; _minutes: number | null }
-        Returns: string | null
+        Args: { _minutes: number; _restaurant_id: string }
+        Returns: string
       }
       resto_timeout_order: { Args: { _order_id: string }; Returns: undefined }
       resto_toggle_item: {
-        Args: { _item_id: string; _available: boolean }
+        Args: { _available: boolean; _item_id: string }
         Returns: undefined
       }
       track_parcel: { Args: { _token: string }; Returns: Json }

@@ -54,7 +54,8 @@ export default function MenuPage() {
   // Pause temporaire / réouverture (« Fermé 1 h »).
   const paused = current.paused_until && new Date(current.paused_until) > new Date()
   async function setPause(minutes: number | null) {
-    await supabase.rpc('resto_set_pause', { _restaurant_id: current.id, _minutes: minutes })
+    // _minutes accepte null côté serveur (réouverture) ; le type généré le voit number.
+    await supabase.rpc('resto_set_pause', { _restaurant_id: current.id, _minutes: minutes as number })
     await refreshRestaurants()
   }
 
