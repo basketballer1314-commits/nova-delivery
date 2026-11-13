@@ -855,19 +855,23 @@ export type Database = {
       }
       parcels: {
         Row: {
+          category: string | null
           cod_amount: number
           created_at: string
           declared_value: number
           dropoff_address_id: string | null
           id: string
           idempotency_key: string
+          otp_hash: string | null
           payment_method: Database["public"]["Enums"]["payment_method"] | null
           pickup_address_id: string | null
           price: number
           pricing_snapshot: Json
+          prohibited_ack: boolean
           recipient_name: string
           recipient_phone: string
           sender_id: string
+          size: string | null
           status: Database["public"]["Enums"]["parcel_status"]
           tracking_token: string
           updated_at: string
@@ -876,19 +880,23 @@ export type Database = {
           zone_to: number | null
         }
         Insert: {
+          category?: string | null
           cod_amount?: number
           created_at?: string
           declared_value?: number
           dropoff_address_id?: string | null
           id?: string
           idempotency_key: string
+          otp_hash?: string | null
           payment_method?: Database["public"]["Enums"]["payment_method"] | null
           pickup_address_id?: string | null
           price?: number
           pricing_snapshot?: Json
+          prohibited_ack?: boolean
           recipient_name: string
           recipient_phone: string
           sender_id: string
+          size?: string | null
           status?: Database["public"]["Enums"]["parcel_status"]
           tracking_token?: string
           updated_at?: string
@@ -897,19 +905,23 @@ export type Database = {
           zone_to?: number | null
         }
         Update: {
+          category?: string | null
           cod_amount?: number
           created_at?: string
           declared_value?: number
           dropoff_address_id?: string | null
           id?: string
           idempotency_key?: string
+          otp_hash?: string | null
           payment_method?: Database["public"]["Enums"]["payment_method"] | null
           pickup_address_id?: string | null
           price?: number
           pricing_snapshot?: Json
+          prohibited_ack?: boolean
           recipient_name?: string
           recipient_phone?: string
           sender_id?: string
+          size?: string | null
           status?: Database["public"]["Enums"]["parcel_status"]
           tracking_token?: string
           updated_at?: string
@@ -1092,6 +1104,7 @@ export type Database = {
           phone: string | null
           status: string
           updated_at: string
+          verified: boolean
         }
         Insert: {
           avatar_path?: string | null
@@ -1102,6 +1115,7 @@ export type Database = {
           phone?: string | null
           status?: string
           updated_at?: string
+          verified?: boolean
         }
         Update: {
           avatar_path?: string | null
@@ -1112,6 +1126,7 @@ export type Database = {
           phone?: string | null
           status?: string
           updated_at?: string
+          verified?: boolean
         }
         Relationships: []
       }
@@ -1959,6 +1974,7 @@ export type Database = {
           zone_id: number
         }[]
       }
+      track_parcel: { Args: { _token: string }; Returns: Json }
     }
     Enums: {
       app_role:
