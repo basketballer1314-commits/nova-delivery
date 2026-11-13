@@ -126,7 +126,7 @@ const dict = {
     cancel: 'Cancel',
     loading: 'Loading…',
   },
-} as const
+}
 
 export type Dict = (typeof dict)['fr']
 

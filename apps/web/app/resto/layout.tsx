@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import '../globals.css'
 import ServiceWorkerRegister from './ServiceWorkerRegister'
+import RestoProvider from './RestoProvider'
 
 export const metadata: Metadata = {
   title: 'NOVA Resto',
@@ -21,7 +22,7 @@ export default function RestoLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-sand-100 text-navy-900">
       <ServiceWorkerRegister />
-      {children}
+      <RestoProvider>{children}</RestoProvider>
     </div>
   )
 }
