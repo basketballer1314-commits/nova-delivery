@@ -768,7 +768,9 @@ export type Database = {
           idempotency_key: string
           items_total: number
           payment_method: Database["public"]["Enums"]["payment_method"] | null
+          prep_minutes: number | null
           pricing_snapshot: Json
+          refusal_reason: string | null
           restaurant_id: string | null
           service_fee: number
           status: Database["public"]["Enums"]["order_status"]
@@ -787,7 +789,9 @@ export type Database = {
           idempotency_key: string
           items_total?: number
           payment_method?: Database["public"]["Enums"]["payment_method"] | null
+          prep_minutes?: number | null
           pricing_snapshot?: Json
+          refusal_reason?: string | null
           restaurant_id?: string | null
           service_fee?: number
           status?: Database["public"]["Enums"]["order_status"]
@@ -806,7 +810,9 @@ export type Database = {
           idempotency_key?: string
           items_total?: number
           payment_method?: Database["public"]["Enums"]["payment_method"] | null
+          prep_minutes?: number | null
           pricing_snapshot?: Json
+          refusal_reason?: string | null
           restaurant_id?: string | null
           service_fee?: number
           status?: Database["public"]["Enums"]["order_status"]
@@ -1508,12 +1514,14 @@ export type Database = {
           commission_rate: number
           commission_valid_from: string
           commission_valid_to: string | null
+          consecutive_refusals: number
           created_at: string
           id: string
           location: unknown
           logo_path: string | null
           name: string
           owner_id: string | null
+          paused_until: string | null
           phone: string | null
           prep_time_minutes: number
           rating_avg: number | null
@@ -1529,12 +1537,14 @@ export type Database = {
           commission_rate?: number
           commission_valid_from?: string
           commission_valid_to?: string | null
+          consecutive_refusals?: number
           created_at?: string
           id?: string
           location?: unknown
           logo_path?: string | null
           name: string
           owner_id?: string | null
+          paused_until?: string | null
           phone?: string | null
           prep_time_minutes?: number
           rating_avg?: number | null
@@ -1550,12 +1560,14 @@ export type Database = {
           commission_rate?: number
           commission_valid_from?: string
           commission_valid_to?: string | null
+          consecutive_refusals?: number
           created_at?: string
           id?: string
           location?: unknown
           logo_path?: string | null
           name?: string
           owner_id?: string | null
+          paused_until?: string | null
           phone?: string | null
           prep_time_minutes?: number
           rating_avg?: number | null
@@ -1973,6 +1985,100 @@ export type Database = {
           quartier: string
           zone_id: number
         }[]
+      }
+      resto_accept_order: {
+        Args: { _order_id: string; _prep_minutes: number }
+        Returns: undefined
+      }
+      resto_add_option: {
+        Args: { _group_id: string; _name: string; _price_delta: number }
+        Returns: string
+      }
+      resto_add_option_group: {
+        Args: {
+          _item_id: string
+          _name: string
+          _min_select: number
+          _max_select: number
+          _required: boolean
+        }
+        Returns: string
+      }
+      resto_add_staff: {
+        Args: { _restaurant_id: string; _phone: string }
+        Returns: string
+      }
+      resto_delete_option: { Args: { _option_id: string }; Returns: undefined }
+      resto_delete_option_group: { Args: { _group_id: string }; Returns: undefined }
+      resto_history: {
+        Args: { _restaurant_id: string; _limit?: number }
+        Returns: {
+          id: string
+          status: Database["public"]["Enums"]["order_status"]
+          total: number
+          refusal_reason: string | null
+          prep_minutes: number | null
+          created_at: string
+        }[]
+      }
+      resto_list_staff: {
+        Args: { _restaurant_id: string }
+        Returns: {
+          user_id: string
+          full_name: string | null
+          phone: string | null
+          member_role: Database["public"]["Enums"]["app_role"]
+          created_at: string
+        }[]
+      }
+      resto_my_restaurants: {
+        Args: never
+        Returns: {
+          id: string
+          name: string
+          slug: string
+          status: Database["public"]["Enums"]["restaurant_status"]
+          paused_until: string | null
+          is_owner: boolean
+        }[]
+      }
+      resto_order_ready: { Args: { _order_id: string }; Returns: undefined }
+      resto_queue: {
+        Args: { _restaurant_id: string }
+        Returns: {
+          id: string
+          status: Database["public"]["Enums"]["order_status"]
+          total: number
+          prep_minutes: number | null
+          created_at: string
+          items: Json
+        }[]
+      }
+      resto_refuse_order: {
+        Args: { _order_id: string; _reason: string }
+        Returns: undefined
+      }
+      resto_remove_staff: {
+        Args: { _restaurant_id: string; _user_id: string }
+        Returns: undefined
+      }
+      resto_reports: {
+        Args: { _restaurant_id: string; _from: string; _to: string }
+        Returns: {
+          orders_count: number
+          gross_sales: number
+          commission_total: number
+          resto_payout: number
+        }[]
+      }
+      resto_set_pause: {
+        Args: { _restaurant_id: string; _minutes: number | null }
+        Returns: string | null
+      }
+      resto_timeout_order: { Args: { _order_id: string }; Returns: undefined }
+      resto_toggle_item: {
+        Args: { _item_id: string; _available: boolean }
+        Returns: undefined
       }
       track_parcel: { Args: { _token: string }; Returns: Json }
     }
