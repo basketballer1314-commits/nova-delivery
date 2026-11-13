@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { useAdmin } from '../AdminProvider'
-import { formatFcfa } from '../../../lib/admin/format'
 import StatusBadge from '../components/StatusBadge'
 import Table, { type Column } from '../components/Table'
 

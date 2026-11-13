@@ -13,7 +13,7 @@ type Ticket = {
 }
 
 export default function TicketsPage() {
-  const { supabase, perm } = useAdmin()
+  const { supabase, perm, session } = useAdmin()
   const [tickets, setTickets] = useState<Ticket[]>([])
   const [subject, setSubject] = useState('')
   const [type, setType] = useState('incident_livraison')
@@ -30,7 +30,7 @@ export default function TicketsPage() {
 
   async function create() {
     if (!subject.trim()) return
-    await supabase.rpc('admin_create_ticket', { _subject: subject.trim(), _type: type, _priority: priority, _user_id: undefined })
+    await supabase.rpc('admin_create_ticket', { _subject: subject.trim(), _type: type, _priority: priority, _user_id: session.user.id })
     setSubject('')
     void load()
   }

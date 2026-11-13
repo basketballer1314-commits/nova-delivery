@@ -214,6 +214,63 @@ export type Database = {
           },
         ]
       }
+      approval_requests: {
+        Row: {
+          action: string
+          amount: number
+          approved_by: string | null
+          created_at: string
+          executed_at: string | null
+          id: string
+          payload: Json
+          reason: string | null
+          requested_by: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          action: string
+          amount?: number
+          approved_by?: string | null
+          created_at?: string
+          executed_at?: string | null
+          id?: string
+          payload?: Json
+          reason?: string | null
+          requested_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          action?: string
+          amount?: number
+          approved_by?: string | null
+          created_at?: string
+          executed_at?: string | null
+          id?: string
+          payload?: Json
+          reason?: string | null
+          requested_by?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_requests_approved_by_fkey"
+            columns: ["approved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "approval_requests_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cash_remittances: {
         Row: {
           amount: number
@@ -1979,29 +2036,41 @@ export type Database = {
       }
       tickets: {
         Row: {
+          closed_at: string | null
+          closed_reason: string | null
           created_at: string
           id: string
+          imputation: string | null
           priority: string
           status: string
           subject: string
+          type: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
+          closed_at?: string | null
+          closed_reason?: string | null
           created_at?: string
           id?: string
+          imputation?: string | null
           priority?: string
           status?: string
           subject: string
+          type?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
+          closed_at?: string | null
+          closed_reason?: string | null
           created_at?: string
           id?: string
+          imputation?: string | null
           priority?: string
           status?: string
           subject?: string
+          type?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -2242,6 +2311,7 @@ export type Database = {
       }
     }
     Functions: {
+      _execute_approval: { Args: { _id: string }; Returns: undefined }
       _lline: {
         Args: {
           _acct: string
@@ -2250,6 +2320,69 @@ export type Database = {
           _debit: number
         }
         Returns: Json
+      }
+      admin_cancel_job: {
+        Args: { _job_id: string; _reason: string }
+        Returns: undefined
+      }
+      admin_close_ticket: {
+        Args: { _id: string; _imputation: string; _reason: string }
+        Returns: undefined
+      }
+      admin_create_ticket: {
+        Args: {
+          _priority: string
+          _subject: string
+          _type: string
+          _user_id: string
+        }
+        Returns: string
+      }
+      admin_dashboard_metrics: { Args: never; Returns: Json }
+      admin_impose_job: {
+        Args: { _courier_id: string; _job_id: string }
+        Returns: undefined
+      }
+      admin_live_map: { Args: never; Returns: Json }
+      admin_offer_job: {
+        Args: { _courier_id: string; _job_id: string }
+        Returns: undefined
+      }
+      admin_orders_by_hour: {
+        Args: { _day: string }
+        Returns: {
+          food_count: number
+          hour: number
+          parcel_count: number
+        }[]
+      }
+      admin_reassign_job: {
+        Args: { _courier_id: string; _job_id: string }
+        Returns: undefined
+      }
+      admin_resolve_alert: { Args: { _id: string }; Returns: undefined }
+      admin_search: { Args: { _q: string }; Returns: Json }
+      admin_set_courier_status: {
+        Args: {
+          _courier_id: string
+          _status: Database["public"]["Enums"]["courier_status"]
+        }
+        Returns: undefined
+      }
+      admin_set_restaurant_seller: {
+        Args: { _pct: number; _restaurant_id: string; _seller_id: string }
+        Returns: undefined
+      }
+      admin_set_restaurant_status: {
+        Args: {
+          _restaurant_id: string
+          _status: Database["public"]["Enums"]["restaurant_status"]
+        }
+        Returns: undefined
+      }
+      admin_update_zone: {
+        Args: { _geojson: Json; _zone_id: number }
+        Returns: undefined
       }
       check_zone: { Args: { _lat: number; _lng: number }; Returns: number }
       courier_accept_offer: { Args: { _offer_id: string }; Returns: string }
@@ -2282,9 +2415,18 @@ export type Database = {
         Returns: number
       }
       dispatch_tick: { Args: never; Returns: undefined }
+      finance_approve: { Args: { _request_id: string }; Returns: undefined }
       finance_post: {
         Args: { _idempotency: string; _kind: string; _payload: Json }
         Returns: string
+      }
+      finance_reject: {
+        Args: { _reason: string; _request_id: string }
+        Returns: undefined
+      }
+      finance_request: {
+        Args: { _action: string; _amount: number; _payload: Json }
+        Returns: Json
       }
       finance_validate_payment: {
         Args: { _order_id: string }
