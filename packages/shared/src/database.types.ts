@@ -1990,10 +1990,26 @@ export type Database = {
         Args: { _order_id: string; _prep_minutes: number }
         Returns: undefined
       }
+      resto_add_option: {
+        Args: { _group_id: string; _name: string; _price_delta: number }
+        Returns: string
+      }
+      resto_add_option_group: {
+        Args: {
+          _item_id: string
+          _name: string
+          _min_select: number
+          _max_select: number
+          _required: boolean
+        }
+        Returns: string
+      }
       resto_add_staff: {
         Args: { _restaurant_id: string; _phone: string }
         Returns: string
       }
+      resto_delete_option: { Args: { _option_id: string }; Returns: undefined }
+      resto_delete_option_group: { Args: { _group_id: string }; Returns: undefined }
       resto_history: {
         Args: { _restaurant_id: string; _limit?: number }
         Returns: {

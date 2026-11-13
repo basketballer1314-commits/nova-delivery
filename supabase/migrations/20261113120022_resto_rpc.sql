@@ -279,6 +279,67 @@ language sql stable security definer set search_path = public as $$
   limit greatest(1, least(coalesce(_limit, 100), 500));
 $$;
 
+-- ---------- Options (pas de policy RLS d'écriture → RPC dédiées) ----------
+create or replace function public.resto_add_option_group(
+  _item_id uuid, _name text, _min_select integer, _max_select integer, _required boolean
+) returns uuid
+language plpgsql security definer set search_path = public as $$
+declare v_rid uuid; v_id uuid;
+begin
+  select restaurant_id into v_rid from public.menu_items where id = _item_id;
+  if v_rid is null then raise exception 'plat introuvable'; end if;
+  if not public.is_restaurant_member(v_rid) then raise exception 'non autorisé'; end if;
+  insert into public.option_groups (item_id, name, min_select, max_select, required)
+  values (_item_id, _name, greatest(_min_select, 0), greatest(_max_select, greatest(_min_select, 0)), coalesce(_required, false))
+  returning id into v_id;
+  return v_id;
+end;
+$$;
+
+create or replace function public.resto_delete_option_group(_group_id uuid)
+returns void language plpgsql security definer set search_path = public as $$
+declare v_rid uuid;
+begin
+  select mi.restaurant_id into v_rid
+    from public.option_groups g join public.menu_items mi on mi.id = g.item_id
+   where g.id = _group_id;
+  if v_rid is null then raise exception 'groupe introuvable'; end if;
+  if not public.is_restaurant_member(v_rid) then raise exception 'non autorisé'; end if;
+  delete from public.option_groups where id = _group_id;
+end;
+$$;
+
+create or replace function public.resto_add_option(_group_id uuid, _name text, _price_delta integer)
+returns uuid language plpgsql security definer set search_path = public as $$
+declare v_rid uuid; v_id uuid;
+begin
+  select mi.restaurant_id into v_rid
+    from public.option_groups g join public.menu_items mi on mi.id = g.item_id
+   where g.id = _group_id;
+  if v_rid is null then raise exception 'groupe introuvable'; end if;
+  if not public.is_restaurant_member(v_rid) then raise exception 'non autorisé'; end if;
+  insert into public.options (group_id, name, price_delta)
+  values (_group_id, _name, coalesce(_price_delta, 0))
+  returning id into v_id;
+  return v_id;
+end;
+$$;
+
+create or replace function public.resto_delete_option(_option_id uuid)
+returns void language plpgsql security definer set search_path = public as $$
+declare v_rid uuid;
+begin
+  select mi.restaurant_id into v_rid
+    from public.options o
+    join public.option_groups g on g.id = o.group_id
+    join public.menu_items mi on mi.id = g.item_id
+   where o.id = _option_id;
+  if v_rid is null then raise exception 'option introuvable'; end if;
+  if not public.is_restaurant_member(v_rid) then raise exception 'non autorisé'; end if;
+  delete from public.options where id = _option_id;
+end;
+$$;
+
 -- ---------- Relevés (owner uniquement) : ventes, commission, reversement ----------
 create or replace function public.resto_reports(_restaurant_id uuid, _from timestamptz, _to timestamptz)
 returns table (
