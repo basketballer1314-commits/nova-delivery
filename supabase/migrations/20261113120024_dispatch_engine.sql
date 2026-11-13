@@ -100,12 +100,12 @@ end $$;
 -- ============================================================
 
 create or replace function public.dispatch_setting(_key text, _default numeric)
-returns numeric language sql stable security definer set search_path = public as $$
+returns numeric language sql stable security definer set search_path = public, extensions as $$
   select coalesce((select (value #>> '{}')::numeric from public.settings where key = _key), _default);
 $$;
 
 create or replace function public.courier_eta_minutes(_from geography, _to geography)
-returns numeric language sql stable security definer set search_path = public as $$
+returns numeric language sql stable security definer set search_path = public, extensions as $$
   select case
     when _from is null or _to is null then null
     else (ST_Distance(_from, _to) / 1000.0)
@@ -114,7 +114,7 @@ returns numeric language sql stable security definer set search_path = public as
 $$;
 
 create or replace function public.dispatch_queue_sms(_user_id uuid, _title text, _body text)
-returns void language plpgsql security definer set search_path = public as $$
+returns void language plpgsql security definer set search_path = public, extensions as $$
 begin
   if _user_id is null then return; end if;
   insert into public.notifications (user_id, type, title, body)
@@ -125,7 +125,7 @@ $$;
 create or replace function public.record_admin_alert(
   _type text, _severity text, _message text,
   _order uuid, _job uuid, _courier uuid, _data jsonb
-) returns uuid language plpgsql security definer set search_path = public as $$
+) returns uuid language plpgsql security definer set search_path = public, extensions as $$
 declare v_id uuid;
 begin
   insert into public.admin_alerts (type, severity, message, order_id, job_id, courier_id, data,
@@ -145,7 +145,7 @@ $$;
 -- ============================================================
 create or replace function public.dispatch_eligible_couriers(_job_id uuid)
 returns table (courier_id uuid, distance_m double precision, eta_min numeric, deliveries_today integer)
-language sql stable security definer set search_path = public as $$
+language sql stable security definer set search_path = public, extensions as $$
   with j as (select * from public.delivery_jobs where id = _job_id)
   select
     c.id,
@@ -180,7 +180,7 @@ $$;
 -- Faire une offre (une à la fois, 45 s)
 -- ============================================================
 create or replace function public.dispatch_make_offer(_job_id uuid)
-returns uuid language plpgsql security definer set search_path = public as $$
+returns uuid language plpgsql security definer set search_path = public, extensions as $$
 declare v_cand uuid; v_timeout integer;
 begin
   -- offre déjà en cours ?
@@ -218,7 +218,7 @@ $$;
 -- Démarrage de la recherche (§10.1)
 -- ============================================================
 create or replace function public.start_courier_search(_job_id uuid)
-returns boolean language plpgsql security definer set search_path = public as $$
+returns boolean language plpgsql security definer set search_path = public, extensions as $$
 declare
   j record;
   v_prep_remaining numeric;
@@ -258,7 +258,7 @@ $$;
 -- RPC livreur : accepter / refuser une offre, annuler une mission
 -- ============================================================
 create or replace function public.courier_accept_offer(_offer_id uuid)
-returns uuid language plpgsql security definer set search_path = public as $$
+returns uuid language plpgsql security definer set search_path = public, extensions as $$
 declare o record; j record; v_payout integer;
 begin
   select * into o from public.job_offers where id = _offer_id for update;
@@ -294,7 +294,7 @@ end;
 $$;
 
 create or replace function public.courier_decline_offer(_offer_id uuid)
-returns void language plpgsql security definer set search_path = public as $$
+returns void language plpgsql security definer set search_path = public, extensions as $$
 declare o record;
 begin
   select * into o from public.job_offers where id = _offer_id for update;
@@ -308,7 +308,7 @@ end;
 $$;
 
 create or replace function public.courier_cancel_job(_job_id uuid, _reason text)
-returns void language plpgsql security definer set search_path = public as $$
+returns void language plpgsql security definer set search_path = public, extensions as $$
 declare j record; v_week_cancels integer; v_limit integer;
 begin
   select * into j from public.delivery_jobs where id = _job_id for update;
@@ -358,7 +358,7 @@ $$;
 -- Création du job quand la commande est acceptée
 -- ============================================================
 create or replace function public.on_order_accepted()
-returns trigger language plpgsql security definer set search_path = public as $$
+returns trigger language plpgsql security definer set search_path = public, extensions as $$
 begin
   if new.status = 'ACCEPTEE' and old.status is distinct from new.status and new.restaurant_id is not null then
     if not exists (select 1 from public.delivery_jobs where order_id = new.id) then
@@ -385,7 +385,7 @@ create trigger order_accepted_dispatch
 
 -- Job colis quand le colis est confirmé
 create or replace function public.on_parcel_confirmed()
-returns trigger language plpgsql security definer set search_path = public as $$
+returns trigger language plpgsql security definer set search_path = public, extensions as $$
 begin
   if new.status = 'CONFIRMEE' and old.status is distinct from new.status then
     if not exists (select 1 from public.delivery_jobs where parcel_id = new.id) then
@@ -413,7 +413,7 @@ create trigger parcel_confirmed_dispatch
 -- Boucle de dispatch (pg_cron)
 -- ============================================================
 create or replace function public.dispatch_tick()
-returns void language plpgsql security definer set search_path = public as $$
+returns void language plpgsql security definer set search_path = public, extensions as $$
 declare
   r record;
   v_elapsed numeric;
