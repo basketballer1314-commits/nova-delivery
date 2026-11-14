@@ -135,6 +135,25 @@
     "go_back": "Go back",
     "mark_favorite": "Add to favorites",
     "remove_favorite": "Remove from favorites",
-    "loading": "Loading"
+    "loading": "Loading",
+    "delivered": "Order delivered",
+    "decrease": "Decrease",
+    "increase": "Increase"
+  },
+  "offline": {
+    "banner": "No connection"
+  },
+  "driver": {
+    "dashboard_title": "Driver dashboard"
+  },
+  "settings": {
+    "title": "Settings",
+    "new_course_sound": "New course sound",
+    "new_course_sound_desc": "Sound and strong vibration on each new course",
+    "offer_delay": "Time to accept a course",
+    "offer_delay_desc": "Time before an offer expires",
+    "seconds": "{{seconds}}s",
+    "reduce_motion": "Reduced motion",
+    "reduce_motion_system": "Follows the phone setting"
   }
 }

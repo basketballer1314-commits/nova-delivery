@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -32,6 +33,7 @@ const variantColors: Record<ToastVariant, { bg: string; text: string; action: st
 }
 
 function ToastItem({ toast, onDismiss }: { toast: ToastMessage; onDismiss: () => void }) {
+  const { t } = useTranslation()
   const translateY = useSharedValue(-80)
   const opacity = useSharedValue(0)
   const { bg, text, action } = variantColors[toast.variant]
@@ -64,8 +66,8 @@ function ToastItem({ toast, onDismiss }: { toast: ToastMessage; onDismiss: () =>
             <Text style={[styles.actionText, { color: action }]}>{toast.actionLabel}</Text>
           </Pressable>
         )}
-        <Pressable onPress={onDismiss} accessibilityRole="button" accessibilityLabel="Fermer">
-          <Text style={[styles.actionText, { color: action }]}>Annuler</Text>
+        <Pressable onPress={onDismiss} accessibilityRole="button" accessibilityLabel={t('common.close')}>
+          <Text style={[styles.actionText, { color: action }]}>{t('common.close')}</Text>
         </Pressable>
       </View>
     </Animated.View>

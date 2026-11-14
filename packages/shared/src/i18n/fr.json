@@ -135,6 +135,25 @@
     "go_back": "Revenir en arrière",
     "mark_favorite": "Ajouter aux favoris",
     "remove_favorite": "Retirer des favoris",
-    "loading": "Chargement en cours"
+    "loading": "Chargement en cours",
+    "delivered": "Commande livrée",
+    "decrease": "Diminuer",
+    "increase": "Augmenter"
+  },
+  "offline": {
+    "banner": "Pas de connexion"
+  },
+  "driver": {
+    "dashboard_title": "Tableau de bord livreur"
+  },
+  "settings": {
+    "title": "Réglages",
+    "new_course_sound": "Son des nouvelles courses",
+    "new_course_sound_desc": "Son et vibration forte à chaque nouvelle course",
+    "offer_delay": "Délai pour accepter une course",
+    "offer_delay_desc": "Temps avant expiration d'une offre",
+    "seconds": "{{seconds}} s",
+    "reduce_motion": "Animations réduites",
+    "reduce_motion_system": "Suit le réglage du téléphone"
   }
 }

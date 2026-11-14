@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { colors, fontFamilies, fontSizes, spacing } from '@nova/ui-tokens'
 
 export default function DriverDashboardScreen() {
+  const { t } = useTranslation()
   return (
     <View style={styles.container}>
       <Text style={styles.text} maxFontSizeMultiplier={1.3}>
-        Tableau de bord livreur
+        {t('driver.dashboard_title')}
       </Text>
     </View>
   )

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -22,6 +23,7 @@ export function Skeleton({
   borderRadius = radii.sm,
   testID,
 }: SkeletonProps) {
+  const { t } = useTranslation()
   const opacity = useSharedValue(1)
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export function Skeleton({
   const animStyle = useAnimatedStyle(() => ({ opacity: opacity.value }))
 
   return (
-    <View testID={testID} accessibilityLabel="Chargement en cours">
+    <View testID={testID} accessibilityLabel={t('a11y.loading')}>
       <Animated.View
         style={[styles.base, { width: width as number, height, borderRadius }, animStyle]}
       />

@@ -3,6 +3,7 @@ import { Stack, useRouter, useSegments } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import * as SplashScreen from 'expo-splash-screen'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import {
   useFonts,
@@ -16,12 +17,15 @@ import {
   Inter_600SemiBold,
 } from '@expo-google-fonts/inter'
 import '../src/i18n'
-import { ToastProvider } from '../src/ui'
+import { ToastProvider, OfflineBanner } from '../src/ui'
 import { useAuth } from '../src/stores/auth'
+import { useSettings } from '../src/stores/settings'
 import { resolveRoute } from '../src/lib/routing'
 import { queryClient, asyncStoragePersister, DAY_MS } from '../src/lib/query'
+import { configureNotificationHandler, registerForPush } from '../src/lib/notifications'
 
 SplashScreen.preventAutoHideAsync()
+configureNotificationHandler()
 
 export const unstable_settings = {
   anchor: '(auth)',
@@ -60,6 +64,8 @@ function useAuthGuard() {
 export default function RootLayout() {
   const init = useAuth((s) => s.init)
   const initialized = useAuth((s) => s.initialized)
+  const session = useAuth((s) => s.session)
+  const initSettings = useSettings((s) => s.init)
   const [fontsLoaded] = useFonts({
     Poppins_500Medium,
     Poppins_600SemiBold,
@@ -71,7 +77,15 @@ export default function RootLayout() {
 
   useEffect(() => {
     init()
-  }, [init])
+    initSettings()
+  }, [init, initSettings])
+
+  // Enregistre le token push dès qu'une session est active.
+  useEffect(() => {
+    if (session?.user.id) {
+      registerForPush(session.user.id).catch(() => {})
+    }
+  }, [session?.user.id])
 
   useEffect(() => {
     if (fontsLoaded && initialized) {
@@ -85,11 +99,13 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
       <PersistQueryClientProvider
         client={queryClient}
         persistOptions={{ persister: asyncStoragePersister, maxAge: DAY_MS }}
       >
         <ToastProvider>
+          <OfflineBanner />
           <Stack>
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
             <Stack.Screen name="(client)" options={{ headerShown: false }} />
@@ -99,6 +115,7 @@ export default function RootLayout() {
           <StatusBar style="auto" />
         </ToastProvider>
       </PersistQueryClientProvider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   )
 }

@@ -30,3 +30,6 @@ export type { StepperProps, StepperStep } from './stepper/Stepper'
 
 export { Price } from './price/Price'
 export type { PriceProps } from './price/Price'
+
+export { OfflineBanner } from './offline-banner/OfflineBanner'
+export { DeliveredCheck } from './delivered-check/DeliveredCheck'

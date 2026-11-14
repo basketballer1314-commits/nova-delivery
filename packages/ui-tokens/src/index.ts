@@ -8,3 +8,5 @@ export { fontFamilies, fontSizes, lineHeights, buttonHeights, minTouchTarget } f
 export type { FontFamilies, FontSizes } from './typography'
 export { elevation, boxShadows } from './elevation'
 export type { Elevation } from './elevation'
+export { durations, easingBezier, easingCss, hapticsMap } from './motion'
+export type { HapticKind, Durations } from './motion'
